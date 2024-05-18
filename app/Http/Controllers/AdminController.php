@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Encuesta;
+use App\Models\Caracterizacion;
+use App\Models\Pregunta;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -17,7 +19,9 @@ class AdminController extends Controller
 
     public function crear_encuesta()
     {
-        return view('admin.crear_encuesta'); // Asegúrate de tener una vista llamada `index` en el directorio `resources/views/admin`
+        $encuestaC = Encuesta::count();
+        $encuestaCount = $encuestaC + 1;
+        return view('admin.crear_encuesta', compact('encuestaCount')); // Asegúrate de tener una vista llamada `index` en el directorio `resources/views/admin`
     }
 
     public function storeEncuesta(Request $request)
@@ -67,5 +71,46 @@ class AdminController extends Controller
         $encuestado = Encuesta::findOrFail($id);
         $encuestado->update($request->all());
         return redirect()->route('encuestas.index')->with('success', 'Encuestado actualizado correctamente');
+    }
+
+    public function crear_caracterizacion()
+    {
+        return view('admin.crear_caracterizacion');
+    }
+
+    public function storeCaracterizacion(Request $request)
+    {
+        $request->validate([
+            'nombre_caracterizacion' => 'required|string|max:255',
+            'observacion_caracterizacion' => 'nullable|string',
+        ]);
+
+        Caracterizacion::create($request->all());
+
+        return redirect()->route('caracterizacion.create')->with('success', 'Caracterización creada con éxito');
+    }
+
+    public function crear_preguntas()
+    {   
+        $caracterizaciones = Caracterizacion::all();
+        return view('admin.crear_pregunta', compact('caracterizaciones'));
+    }
+
+    public function storePregunta(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'caracterizacion_id' => 'required|exists:caracterizacions,id',
+            'pregunta' => 'required|string',
+        ]);
+
+        // Crear y guardar la pregunta
+        $pregunta = new Pregunta();
+        $pregunta->caracterizacion_id = $request->caracterizacion_id;
+        $pregunta->pregunta = $request->pregunta;
+        $pregunta->save();
+
+        // Redireccionar con un mensaje de éxito
+        return redirect()->back()->with('success', '¡La pregunta ha sido creada exitosamente!');
     }
 }

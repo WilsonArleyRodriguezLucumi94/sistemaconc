@@ -1,4 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<!-- resources/views/layouts/navigation.blade.php -->
+
+<nav x-data="{ open: false, encuestaOpen: false, caracterizacionOpen: false, preguntasOpen: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -11,20 +13,55 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-24 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('crear_encuesta') }}" :active="request()->routeIs('crear_encuesta')">
-                        {{ __('Crear Encuesta') }}
-                    </x-nav-link>
+
+                <!-- Encuesta Dropdown -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-24 sm:flex relative">
+                    <button @click="encuestaOpen = ! encuestaOpen" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        {{ __('Encuesta') }}
+                    </button>
+                    <div x-show="encuestaOpen" @click.away="encuestaOpen = false" class="absolute bg-white shadow-lg rounded-md mt-2 py-2 w-48">
+                        <x-dropdown-link href="{{ route('crear_encuesta') }}">
+                            {{ __('Crear Encuesta') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link href="{{ route('encuestas.index') }}">
+                            {{ __('Listar Encuestados') }}
+                        </x-dropdown-link>
+                    </div>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('encuestas.index') }}" :active="request()->routeIs('encuestas.index')">
-                        {{ __('Listar Encuestados') }}
-                    </x-nav-link>
+
+                <!-- Caracterización Dropdown -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-24 sm:flex relative">
+                    <button @click="caracterizacionOpen = ! caracterizacionOpen" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        {{ __('Caracterización') }}
+                    </button>
+                    <div x-show="caracterizacionOpen" @click.away="caracterizacionOpen = false" class="absolute bg-white shadow-lg rounded-md mt-2 py-2 w-48">
+                        <x-dropdown-link href="{{ route('crear_caracterizacion') }}">
+                            {{ __('Crear Caracterización') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link href="{{ route('listar_caracterizacion') }}">
+                            {{ __('Listar Caracterización') }}
+                        </x-dropdown-link>
+                    </div>
+                </div>
+
+                <!-- Preguntas Dropdown -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-24 sm:flex relative">
+                    <button @click="preguntasOpen = ! preguntasOpen" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        {{ __('Preguntas') }}
+                    </button>
+                    <div x-show="preguntasOpen" @click.away="preguntasOpen = false" class="absolute bg-white shadow-lg rounded-md mt-2 py-2 w-48">
+                        <x-dropdown-link href="{{ route('crear_preguntas') }}">
+                            {{ __('Crear Preguntas') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link href="{{ route('listar_preguntas') }}">
+                            {{ __('Listar Preguntas') }}
+                        </x-dropdown-link>
+                    </div>
                 </div>
             </div>
 

@@ -27,3 +27,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/admin/encuestas', [AdminC
 Route::middleware(['auth:sanctum', 'verified'])->get('/admin/encuestas/{id}/edit', [AdminController::class, 'editarEncuesta'])->name('encuesta.edit');
 Route::middleware(['auth:sanctum', 'verified'])->delete('/admin/encuestas/{id}', [AdminController::class, 'eliminarEncuesta'])->name('encuesta.destroy');
 Route::put('/encuestas/{id}', [AdminController::class, 'update'])->name('encuesta.update');
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/crear_caracterizacion', [AdminController::class, 'crear_caracterizacion'])->name('crear_caracterizacion');
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/listar_caracterizacion', [AdminController::class, 'listar_caracterizacion'])->name('listar_caracterizacion');
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/crear_preguntas', [AdminController::class, 'crear_preguntas'])->name('crear_preguntas');
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/listar_preguntas', [AdminController::class, 'listar_preguntas'])->name('listar_preguntas');
+//caracterizacion
+
+Route::get('/caracterizacion/crear', [AdminController::class, 'crear_caracterizacion'])->name('caracterizacion.create');
+Route::post('/caracterizacion', [AdminController::class, 'storeCaracterizacion'])->name('caracterizacion.store');
+
+//preguntas
+Route::get('/pregunta/crear', [AdminController::class, 'crear_preguntas'])->name('pregunta.create');
+Route::post('/pregunta', [AdminController::class, 'storePregunta'])->name('preguntas.store');
