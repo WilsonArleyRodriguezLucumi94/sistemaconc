@@ -48,3 +48,5 @@ Route::post('/admin/guardar-pregunta', [AdminController::class, 'guardarPregunta
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/admin/caracterizacion_uno/{id}/create', [AdminController::class, 'caracterizacion_uno'])->name('caracterizacion_uno.create');
 //Route::middleware(['auth:sanctum', 'verified'])->get('/admin/encuestas/{id}/edit', [AdminController::class, 'editarEncuesta'])->name('encuesta.edit');
+Route::post('/guardar-caracterizacion', [App\Http\Controllers\AdminController::class, 'guardarCaracterizacionUno'])->name('guardar.caracterizacion');
+

@@ -155,6 +155,25 @@ class AdminController extends Controller
             return redirect()->route('admin.createPregunta')->with('success', '¡La pregunta ha sido creada exitosamente!');
         }
 
+        public function guardarCaracterizacionUno(Request $request)
+        {
+            // Validar los datos enviados desde el formulario
+            $request->validate([
+                // Define aquí las reglas de validación para cada campo si es necesario
+            ]);
         
+            // Guardar la caracterización en la base de datos
+            CaracterizacionUno::create([
+                'sexo' => $request->sexo,
+                'edad_cumplida' => $request->edad_cumplida,
+                'sabe_leer_y_escribir' => $request->sabe_leer_y_escribir,
+                'num_personas_dependen_jefe_familia' => $request->num_personas_dependen_jefe_familia,
+                'organizacion_pertenece' => $request->organizacion_pertenece,
+                'actividad_principal' => $request->actividad_principal,
+                'ingreso_familiar_promedio_mensual' => $request->ingreso_familiar_promedio_mensual,
+            ]);
+        
+            // Redireccionar o devolver una respuesta según sea necesario
+        }        
 
 }
