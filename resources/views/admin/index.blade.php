@@ -1,4 +1,4 @@
-<!-- resources/views/admin/index.blade.php -->
+<!-- resources/views/admin/caracterizacion_uno.blade.php -->
 
 <x-app-layout>
     <x-slot name="header">

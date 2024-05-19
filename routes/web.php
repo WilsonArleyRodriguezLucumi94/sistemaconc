@@ -39,3 +39,12 @@ Route::post('/caracterizacion', [AdminController::class, 'storeCaracterizacion']
 //preguntas
 Route::get('/pregunta/crear', [AdminController::class, 'crear_preguntas'])->name('pregunta.create');
 Route::post('/pregunta', [AdminController::class, 'storePregunta'])->name('preguntas.store');
+
+
+//caracterizacion uno
+
+Route::get('/admin/caracterizacion_uno', [AdminController::class, 'caracterizacion_uno'])->name('admin.caracterizacion_uno');
+Route::post('/admin/guardar-pregunta', [AdminController::class, 'guardarPregunta'])->name('admin.guardarPregunta');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/caracterizacion_uno/{id}/create', [AdminController::class, 'caracterizacion_uno'])->name('caracterizacion_uno.create');
+//Route::middleware(['auth:sanctum', 'verified'])->get('/admin/encuestas/{id}/edit', [AdminController::class, 'editarEncuesta'])->name('encuesta.edit');

@@ -70,7 +70,7 @@
                                             Editar
                                         </a>
                                         <!-- Botón de Caracterizacion -->
-                                        <a href="{{ route('encuesta.edit', $encuesta->id) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        <a href="{{ route('caracterizacion_uno.create', $encuesta->id) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                             Caracterización
                                         </a>
                                         <!-- Botón de Eliminar -->

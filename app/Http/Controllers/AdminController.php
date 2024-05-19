@@ -113,4 +113,48 @@ class AdminController extends Controller
         // Redireccionar con un mensaje de éxito
         return redirect()->back()->with('success', '¡La pregunta ha sido creada exitosamente!');
     }
+
+    /////caracterizacion 1
+        public function caracterizacion_uno($id)
+        {
+            // Obtener todas las caracterizaciones para el select
+            $caracterizaciones = Caracterizacion::all();
+            $encuestado = Encuesta::findOrFail($id);
+            //$dd($encuestado);
+            return view('admin.caracterizacion_uno', compact('encuestado', 'caracterizaciones'));
+            //return view('admin.caracterizacion_uno', compact('caracterizaciones'));
+        }
+
+        public function guardarPregunta(Request $request)
+        {
+            // Validar los datos del formulario
+            $request->validate([
+                'caracterizacion_id' => 'required|exists:caracterizacions,id',
+                'sexo' => 'required',
+                'edad_cumplida' => 'required|integer',
+                'sabe_leer_escribir' => 'required',
+                'numero_dependientes' => 'required|integer',
+                'organizacion' => 'required|array',
+                'actividad_principal' => 'required|array',
+                'actividad_secundaria' => 'nullable|string',
+            ]);
+
+            // Crear una nueva pregunta y guardar los datos
+            $pregunta = new Pregunta();
+            $pregunta->caracterizacion_id = $request->input('caracterizacion_id');
+            $pregunta->sexo = $request->input('sexo');
+            $pregunta->edad_cumplida = $request->input('edad_cumplida');
+            $pregunta->sabe_leer_escribir = $request->input('sabe_leer_escribir');
+            $pregunta->numero_dependientes = $request->input('numero_dependientes');
+            $pregunta->organizacion = implode(', ', $request->input('organizacion'));
+            $pregunta->actividad_principal = implode(', ', $request->input('actividad_principal'));
+            $pregunta->actividad_secundaria = $request->input('actividad_secundaria');
+            $pregunta->save();
+
+            // Redireccionar con un mensaje de éxito
+            return redirect()->route('admin.createPregunta')->with('success', '¡La pregunta ha sido creada exitosamente!');
+        }
+
+        
+
 }
