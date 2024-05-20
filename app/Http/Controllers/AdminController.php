@@ -38,9 +38,9 @@ class AdminController extends Controller
 
         // Guarda los datos en la base de datos
         Encuesta::create($request->all());
-
+        $encuestas = Encuesta::all();
         // Redirige o muestra un mensaje de éxito
-        return redirect()->route('crear_encuesta')->with('success', 'Encuesta creada exitosamente.');
+        return redirect()->route('encuestas.index', compact('encuestas'))->with('success', 'Encuesta creada exitosamente.');
     }
 
     public function listarEncuestas()
@@ -174,6 +174,95 @@ class AdminController extends Controller
             ]);
         
             // Redireccionar o devolver una respuesta según sea necesario
-        }        
+        }    
+        
+        
+        //caracterizacion 2
+
+        public function verCaracterizacion2()
+    {
+        return view('admin.caracterizacion_dos');
+    }
+        public function guardarCaracterizacion2(Request $request)
+{
+    // Validar los datos enviados desde el formulario
+    $request->validate([
+        // Define aquí las reglas de validación para cada campo si es necesario
+    ]);
+
+    // Guardar la caracterización en la base de datos
+    CaracterizacionDos::create([
+        'unidad_productiva' => implode(',', $request->unidad_productiva),
+        'epoca_siembra' => implode(',', $request->epoca_siembra),
+        'que_son_cabanuelas' => $request->que_son_cabanuelas,
+        'tipos_cabanuelas' => $request->tipos_cabanuelas,
+        'cabanuelas_grandes' => $request->cabanuelas_grandes,
+        'cabanuelas_chiquitas' => $request->cabanuelas_chiquitas,
+        'festividad_lluvias' => $request->festividad_lluvias,
+    ]);
+
+    // Redireccionar o devolver una respuesta según sea necesario
+}
+
+//caracterizacion 3
+
+// Método para mostrar el formulario de CARACTERIZACIÓN 3
+public function verCaracterizacion3()
+{
+    return view('admin.caracterizacion_tres');
+}
+
+// Método para guardar los datos del formulario de CARACTERIZACIÓN 3
+public function guardarCaracterizacion3(Request $request)
+{
+    // Validar los datos enviados desde el formulario
+    $request->validate([
+        // Define aquí las reglas de validación para cada campo si es necesario
+    ]);
+
+    // Guardar la caracterización en la base de datos
+    CaracterizacionTres::create([
+        'formas_trabajo' => implode(',', $request->formas_trabajo),
+        'tenencia_propiedad' => implode(',', $request->tenencia_propiedad),
+    ]);
+
+    // Redireccionar o devolver una respuesta según sea necesario
+    return redirect()->route('ver.caracterizacion3')->with('success', 'Datos guardados exitosamente.');
+}
+
+    //caracterizacion 4
+    public function verCaracterizacion4()
+    {
+        return view('admin.caracterizacion_cuatro');
+    }
+
+    // Método para guardar los datos del formulario de CARACTERIZACIÓN 4
+    public function guardarCaracterizacion4(Request $request)
+    {
+        // Validar los datos enviados desde el formulario
+        $request->validate([
+            'formas_trabajo' => 'required|array',
+            'tenencia_propiedad' => 'required|array',
+            'areas_para_sembrar' => 'required|string',
+            'cantidad_jornales' => 'required|integer',
+            'tipo_fertilizacion' => 'required|array',
+            'donde_vende' => 'required|array',
+            'otro_donde_vende' => 'nullable|string',
+        ]);
+
+        // Guardar la caracterización en la base de datos
+        CaracterizacionCuatro::create([
+            'formas_trabajo' => implode(',', $request->formas_trabajo),
+            'tenencia_propiedad' => implode(',', $request->tenencia_propiedad),
+            'areas_para_sembrar' => $request->areas_para_sembrar,
+            'cantidad_jornales' => $request->cantidad_jornales,
+            'tipo_fertilizacion' => implode(',', $request->tipo_fertilizacion),
+            'donde_vende' => implode(',', $request->donde_vende),
+            'otro_donde_vende' => $request->otro_donde_vende,
+        ]);
+
+        // Redireccionar o devolver una respuesta según sea necesario
+        return redirect()->route('ver.caracterizacion4')->with('success', 'Datos guardados exitosamente.');
+    }
 
 }
