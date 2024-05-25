@@ -179,9 +179,11 @@ class AdminController extends Controller
         
         //caracterizacion 2
 
-        public function verCaracterizacion2()
+        public function verCaracterizacion2($id)
     {
-        return view('admin.caracterizacion_dos');
+        $caracterizaciones = Caracterizacion::all();
+        $encuestado = Encuesta::findOrFail($id);
+        return view('admin.caracterizacion_dos', compact('encuestado', 'caracterizaciones'));
     }
         public function guardarCaracterizacion2(Request $request)
 {
@@ -207,9 +209,11 @@ class AdminController extends Controller
 //caracterizacion 3
 
 // Método para mostrar el formulario de CARACTERIZACIÓN 3
-public function verCaracterizacion3()
+public function verCaracterizacion3($id)
 {
-    return view('admin.caracterizacion_tres');
+    $caracterizaciones = Caracterizacion::all();
+    $encuestado = Encuesta::findOrFail($id);
+    return view('admin.caracterizacion_tres', compact('encuestado', 'caracterizaciones'));
 }
 
 // Método para guardar los datos del formulario de CARACTERIZACIÓN 3
@@ -231,10 +235,22 @@ public function guardarCaracterizacion3(Request $request)
 }
 
     //caracterizacion 4
-    public function verCaracterizacion4()
+    public function verCaracterizacion4($id)
     {
-        return view('admin.caracterizacion_cuatro');
+        $caracterizaciones = Caracterizacion::all();
+        $encuestado = Encuesta::findOrFail($id);
+        return view('admin.caracterizacion_cuatro', compact('encuestado', 'caracterizaciones'));
     }
+
+    public function listarCaracterizacion()
+    {
+        // Obtener todos los encuestados
+        $encuestas = Encuesta::all();
+
+        // Pasar los datos a la vista
+        return view('admin.listarCaracterizacion', compact('encuestas'));
+    }
+    
 
     // Método para guardar los datos del formulario de CARACTERIZACIÓN 4
     public function guardarCaracterizacion4(Request $request)

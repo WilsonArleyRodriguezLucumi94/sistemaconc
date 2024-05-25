@@ -35,6 +35,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/admin/listar_preguntas', 
 Route::get('/caracterizacion/crear', [AdminController::class, 'crear_caracterizacion'])->name('caracterizacion.create');
 Route::post('/caracterizacion', [AdminController::class, 'storeCaracterizacion'])->name('caracterizacion.store');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/listarcaracterizacion', [AdminController::class, 'listarCaracterizacion'])->name('listarCaracterizacion');
+
+
+
 //preguntas
 Route::get('/pregunta/crear', [AdminController::class, 'crear_preguntas'])->name('pregunta.create');
 Route::post('/pregunta', [AdminController::class, 'storePregunta'])->name('preguntas.store');
@@ -45,17 +49,20 @@ Route::post('/pregunta', [AdminController::class, 'storePregunta'])->name('pregu
 Route::get('/admin/caracterizacion_uno', [AdminController::class, 'caracterizacion_uno'])->name('admin.caracterizacion_uno');
 Route::post('/admin/guardar-pregunta', [AdminController::class, 'guardarPregunta'])->name('admin.guardarPregunta');
 
+
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/admin/caracterizacion_uno/{id}/create', [AdminController::class, 'caracterizacion_uno'])->name('caracterizacion_uno.create');
 //Route::middleware(['auth:sanctum', 'verified'])->get('/admin/encuestas/{id}/edit', [AdminController::class, 'editarEncuesta'])->name('encuesta.edit');
 Route::post('/guardar-caracterizacion', [App\Http\Controllers\AdminController::class, 'guardarCaracterizacionUno'])->name('guardar.caracterizacion');
 //caracterizacion 2
-Route::get('/admin/caracterizacion2', [AdminController::class, 'verCaracterizacion2'])->name('ver.caracterizacion2');
+//Route::get('/admin/caracterizacion2', [AdminController::class, 'verCaracterizacion2'])->name('ver.caracterizacion2');
 Route::post('/guardar-caracterizacion2', [AdminController::class, 'guardarCaracterizacion2'])->name('guardar.caracterizacion2');
-
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/verCaracterizacion2/{id}/create', [AdminController::class, 'verCaracterizacion2'])->name('caracterizacion_dos.create');
 //caracterizacion 3
-Route::get('/admin/caracterizacion3', [AdminController::class, 'verCaracterizacion3'])->name('ver.caracterizacion3');
+Route::get('/admin/caracterizacion3/{id}/create', [AdminController::class, 'verCaracterizacion3'])->name('caracterizacion_tres.create');
 Route::post('/guardar-caracterizacion3', [AdminController::class, 'guardarCaracterizacion3'])->name('guardar.caracterizacion3');
 
 //caracterizacion 4
-Route::get('/admin/aracterizacion4', [AdminController::class, 'verCaracterizacion4'])->name('ver.caracterizacion4');
+Route::get('/admin/aracterizacion4/{id}/create', [AdminController::class, 'verCaracterizacion4'])->name('caracterizacion_cuatro.create');
 Route::post('/guardar-caracterizacion4', [AdminController::class, 'guardarCaracterizacion4'])->name('guardar.caracterizacion4');

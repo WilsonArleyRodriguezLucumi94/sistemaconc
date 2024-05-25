@@ -43,7 +43,7 @@
                         <x-dropdown-link href="{{ route('crear_caracterizacion') }}">
                             {{ __('Crear Caracterización') }}
                         </x-dropdown-link>
-                        <x-dropdown-link href="{{ route('listar_caracterizacion') }}">
+                        <x-dropdown-link href="{{ route('listarCaracterizacion') }}">
                             {{ __('Listar Caracterización') }}
                         </x-dropdown-link>
                     </div>

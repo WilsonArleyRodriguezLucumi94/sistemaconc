@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lista de Encuestados') }}
+            {{ __('Lista Para Caracterizar') }}
         </h2>
     </x-slot>
 
@@ -16,30 +16,22 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Nombres y Apellidos
-                                    <input type="text" class="mt-1 block w-full" placeholder="Filtrar..." id="filter-nombres-apellidos">
+                                    
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Vereda
-                                    <input type="text" class="mt-1 block w-full" placeholder="Filtrar..." id="filter-vereda">
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Municipio
-                                    <input type="text" class="mt-1 block w-full" placeholder="Filtrar..." id="filter-municipio">
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Departamento
-                                    <input type="text" class="mt-1 block w-full" placeholder="Filtrar..." id="filter-departamento">
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Responsable
-                                    <input type="text" class="mt-1 block w-full" placeholder="Filtrar..." id="filter-responsable">
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Correo Electrónico
-                                    <input type="text" class="mt-1 block w-full" placeholder="Filtrar..." id="filter-email">
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Acciones
+                                    Caracterización
                                 </th>
                             </tr>
                         </thead>
@@ -59,23 +51,23 @@
                                         {{ $encuesta->departamento }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {{ $encuesta->responsable }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {{ $encuesta->email }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 flex space-x-2">
-                                        <!-- Botón de Editar -->
-                                        <a href="{{ route('encuesta.edit', $encuesta->id) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Editar
+                                        <!-- Botón de Caracterizacion -->
+                                        <a href="{{ route('caracterizacion_uno.create', $encuesta->id) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            UNO
                                         </a>
-                                        <!-- Botón de Eliminar -->
-                                        <form method="POST" action="{{ route('encuesta.destroy', $encuesta->id) }}">
+                                        <a href="{{ route('caracterizacion_dos.create', $encuesta->id) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            DOS
+                                        </a>
+                                        <a href="{{ route('caracterizacion_tres.create', $encuesta->id) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            TRES
+                                        </a>
+                                        <a href="{{ route('caracterizacion_cuatro.create', $encuesta->id) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            CUATRO
+                                        </a>
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                                Eliminar
-                                            </button>
                                         </form>
                                     </td>
                                 </tr>
@@ -87,38 +79,3 @@
         </div>
     </div>
 </x-app-layout>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const filters = {
-            'nombres-apellidos': '',
-            'vereda': '',
-            'municipio': '',
-            'departamento': '',
-            'responsable': '',
-            'email': ''
-        };
-
-        function filterTable() {
-            const rows = document.querySelectorAll('#encuestas-tbody tr');
-            rows.forEach(row => {
-                let showRow = true;
-                Object.keys(filters).forEach(filterKey => {
-                    const filterValue = filters[filterKey].toLowerCase();
-                    const cell = row.querySelector(`td:nth-child(${Object.keys(filters).indexOf(filterKey) + 1})`);
-                    if (cell && !cell.textContent.toLowerCase().includes(filterValue)) {
-                        showRow = false;
-                    }
-                });
-                row.style.display = showRow ? '' : 'none';
-            });
-        }
-
-        Object.keys(filters).forEach(filterKey => {
-            document.getElementById(`filter-${filterKey}`).addEventListener('input', function (event) {
-                filters[filterKey] = event.target.value;
-                filterTable();
-            });
-        });
-    });
-</script>

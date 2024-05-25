@@ -6,6 +6,24 @@
             {{ __('CARACTERIZACIÓN 4') }}
         </h2>
     </x-slot>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                        <!-- Nombres y Apellidos -->
+                        <div class="mb-4">
+                            <label for="nombres_apellidos" class="block text-sm font-medium text-gray-700">Nombres y Apellidos</label>
+                            <input type="text" name="nombres_apellidos" id="nombres_apellidos" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value="{{ $encuestado->nombres_apellidos }}" readonly>
+                        </div>
+                        <!-- Correo Electrónico -->
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                            <input type="email" name="email" id="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value="{{ $encuestado->email }}" readonly>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
