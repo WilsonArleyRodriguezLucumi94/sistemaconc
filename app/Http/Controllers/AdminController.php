@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\Encuesta;
 use App\Models\Caracterizacion;
+use App\Models\CaracterizacionUno;
+use App\Models\CaracterizacionDos;
+use App\Models\CaracterizacionTres;
+use App\Models\CaracterizacionCuatro;
 use App\Models\Pregunta;
 use Illuminate\Http\Request;
 
@@ -26,21 +30,32 @@ class AdminController extends Controller
 
     public function storeEncuesta(Request $request)
     {
-        // Valida los datos del formulario
         $request->validate([
+            'numero_encuesta' => 'required|integer',
             'nombres_apellidos' => 'required|string|max:255',
             'vereda' => 'required|string|max:255',
             'municipio' => 'required|string|max:255',
             'departamento' => 'required|string|max:255',
             'responsable' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:encuestas,email',
+            'email' => 'required|string|email|max:255',
         ]);
 
-        // Guarda los datos en la base de datos
-        Encuesta::create($request->all());
-        $encuestas = Encuesta::all();
-        // Redirige o muestra un mensaje de éxito
-        return redirect()->route('encuestas.index', compact('encuestas'))->with('success', 'Encuesta creada exitosamente.');
+        // Crear una nueva encuesta con los datos validados
+        $encuesta = new Encuesta([
+            'numero_encuesta' => $request->numero_encuesta,
+            'nombres_apellidos' => $request->nombres_apellidos,
+            'vereda' => $request->vereda,
+            'municipio' => $request->municipio,
+            'departamento' => $request->departamento,
+            'responsable' => $request->responsable,
+            'email' => $request->email,
+        ]);
+
+        // Guardar la encuesta en la base de datos
+        $encuesta->save();
+
+        // Redireccionar a una página de éxito o mostrar un mensaje de éxito
+        return redirect()->route('encuestas.index')->with('success', 'Encuesta guardada exitosamente.');
     }
 
     public function listarEncuestas()
@@ -120,6 +135,7 @@ class AdminController extends Controller
             // Obtener todas las caracterizaciones para el select
             $caracterizaciones = Caracterizacion::all();
             $encuestado = Encuesta::findOrFail($id);
+            //$caracterizacion = Caracterizacion::findOrFail($id);
             //$dd($encuestado);
             return view('admin.caracterizacion_uno', compact('encuestado', 'caracterizaciones'));
             //return view('admin.caracterizacion_uno', compact('caracterizaciones'));
@@ -140,7 +156,7 @@ class AdminController extends Controller
             ]);
 
             // Crear una nueva pregunta y guardar los datos
-            $pregunta = new Pregunta();
+            $pregunta = new CaracterizacionUno();
             $pregunta->caracterizacion_id = $request->input('caracterizacion_id');
             $pregunta->sexo = $request->input('sexo');
             $pregunta->edad_cumplida = $request->input('edad_cumplida');

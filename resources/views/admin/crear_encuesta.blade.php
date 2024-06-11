@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('ENCUESTA') }} (#{{ $encuestaCount }})
+            {{ __('ENCUESTA') }} (#{{ $encuestaCount }})
         </h2>
     </x-slot>
 
@@ -20,10 +20,16 @@
                     <form method="POST" action="{{ route('encuesta.store') }}">
                         @csrf
 
+                        <!-- Número de Encuesta -->
+                        <div class="mb-4">
+                            <x-label for="numero_encuesta" :value="__('NÚMERO DE ENCUESTA')" />
+                            <x-input id="numero_encuesta" class="block mt-1 w-full" type="text" name="numero_encuesta" required autofocus />
+                        </div>
+
                         <!-- Nombres y Apellidos -->
                         <div class="mb-4">
                             <x-label for="nombres_apellidos" :value="__('NOMBRES Y APELLIDOS')" />
-                            <x-input id="nombres_apellidos" class="block mt-1 w-full" type="text" name="nombres_apellidos" required autofocus />
+                            <x-input id="nombres_apellidos" class="block mt-1 w-full" type="text" name="nombres_apellidos" required />
                         </div>
 
                         <!-- Vereda -->
